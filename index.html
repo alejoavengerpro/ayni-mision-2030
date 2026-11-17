@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AYNI · Misión 2030</title>
+<style>
+:root{--bg:#0a0f24;--card:#141b3a;--card2:#1c2552;--tx:#eef2ff;--mut:#9aa6d1;--line:#2b3668;--teal:#2dd4bf;--amb:#fbbf24;--cor:#fb7185;--blu:#60a5fa;--r:18px}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:radial-gradient(1200px 600px at 80% -10%,#1d2a6b 0,transparent 60%),radial-gradient(900px 500px at -10% 110%,#0f3d4a 0,transparent 60%),var(--bg);background-attachment:fixed;color:var(--tx);font-family:ui-rounded,"Nunito","Segoe UI",system-ui,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased}
+#app{max-width:1020px;margin:0 auto;padding:18px 16px 110px}
+h1,h2,h3{line-height:1.15}
+button,input,select{font:inherit;color:inherit}
+.btn{border:0;border-radius:14px;padding:12px 20px;font-weight:800;cursor:pointer;background:var(--card2);color:var(--tx);transition:transform .12s,filter .12s,box-shadow .12s;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn.pri{background:linear-gradient(135deg,var(--teal),#22a5f7);color:#04121f;box-shadow:0 8px 24px -8px var(--teal)}
+.btn.amb{background:linear-gradient(135deg,var(--amb),#fb923c);color:#2b1500}
+.btn.ghost{background:transparent;border:1.5px solid var(--line)}
+.btn.sm{padding:7px 12px;font-size:.85rem;border-radius:10px}
+.btn.big{padding:16px 28px;font-size:1.1rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.mut{color:var(--mut)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.sp{justify-content:space-between}
+.fade{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* HOME */
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.5px}
+.logo{width:38px;height:38px;border-radius:50%;background:conic-gradient(from 0deg,var(--teal),var(--blu),var(--amb),var(--cor),var(--teal));display:grid;place-items:center}
+.logo::after{content:"";width:22px;height:22px;border-radius:50%;background:var(--bg)}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:26px;align-items:center;margin-top:26px}
+.hero h1{font-size:clamp(2rem,5vw,3.3rem);font-weight:900}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--teal),var(--amb));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:14px 0 22px;font-size:1.08rem;color:var(--mut);max-width:46ch}
+.scene{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);position:relative;background:#000;box-shadow:0 20px 50px -20px #000}
+.scene svg{display:block;width:100%;height:auto}
+.scene-cap{position:absolute;left:10px;top:10px;background:#0009;padding:4px 10px;border-radius:99px;font-size:.78rem;font-weight:800;backdrop-filter:blur(4px)}
+.odsstrip{display:grid;grid-template-columns:repeat(17,1fr);gap:4px;margin:28px 0 8px}
+.odsstrip span{height:34px;border-radius:7px;display:grid;place-items:center;font-weight:900;font-size:.8rem;color:#fff;cursor:pointer;transition:transform .12s}
+.odsstrip span:hover{transform:translateY(-4px) scale(1.08)}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.feat .ic{font-size:1.9rem}
+.feat h3{margin:8px 0 4px;font-size:1.05rem}
+.feat p{color:var(--mut);font-size:.92rem}
+
+/* ONBOARD */
+.form{max-width:520px;margin:30px auto}
+label{display:block;font-weight:800;font-size:.88rem;margin:16px 0 6px}
+input[type=text],select{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:#0c1230;outline:0}
+input:focus,select:focus{border-color:var(--teal)}
+.avs{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
+.avs button{font-size:1.6rem;aspect-ratio:1;border-radius:14px;border:2px solid var(--line);background:#0c1230;cursor:pointer;transition:.12s}
+.avs button.on{border-color:var(--teal);background:#12344a;transform:scale(1.08)}
+
+/* GAME */
+.gbar{display:flex;align-items:center;gap:14px;justify-content:space-between;margin-bottom:12px}
+.pl{display:flex;align-items:center;gap:8px;min-width:0}
+.pl b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+.av{font-size:1.5rem;background:var(--card2);width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex:none}
+.turn{flex:1;max-width:340px;font-size:.85rem;color:var(--mut);text-align:center}
+.prog{height:7px;background:var(--card2);border-radius:99px;overflow:hidden;margin-top:4px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--amb));border-radius:99px;transition:width .4s}
+.meters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.meter{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:9px 11px;position:relative}
+.meter .top{display:flex;align-items:center;gap:6px;font-size:.82rem;font-weight:800}
+.meter .mi{font-size:1.15rem}
+.meter .val{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--mut)}
+.mb{height:9px;background:#0a1030;border-radius:99px;margin-top:7px;overflow:hidden}
+.mb i{display:block;height:100%;border-radius:99px;transition:width .6s cubic-bezier(.2,.9,.3,1.2)}
+.meter.low{border-color:var(--cor);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 4px #fb718533}}
+.dot{position:absolute;top:-5px;right:-5px;width:0;height:0;border-radius:50%;background:#fff;transition:.15s;box-shadow:0 0 10px #fff}
+.dot.on{width:11px;height:11px}
+.dot.big{width:17px;height:17px}
+.gcols{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.deckarea{min-height:330px;display:flex;flex-direction:column;gap:12px}
+.card{background:linear-gradient(160deg,#1e2a60,#151c40);border:1px solid #3a4788;border-radius:22px;padding:20px;position:relative;touch-action:pan-y;user-select:none;transition:transform .25s,opacity .25s;box-shadow:0 18px 40px -18px #000;animation:deal .35s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes deal{from{opacity:0;transform:translateY(30px) scale(.94)}}
+.card.drag{cursor:grab}
+.chip{display:inline-block;padding:4px 10px;border-radius:99px;font-size:.74rem;font-weight:900;color:#fff}
+.who{display:flex;align-items:center;gap:12px;margin:14px 0 10px}
+.who .em{font-size:2.6rem;background:#0b1232;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;border:2px solid #3a4788;flex:none}
+.who b{font-size:1.05rem}
+.card p.t{font-size:1.08rem}
+.tag{position:absolute;top:16px;padding:6px 12px;border-radius:10px;font-weight:900;font-size:.85rem;opacity:0;transition:opacity .12s;max-width:60%;border:2px solid}
+.tag.l{left:14px;transform:rotate(-6deg);color:var(--amb);border-color:var(--amb);background:#2b1f00dd}
+.tag.r{right:14px;transform:rotate(6deg);color:var(--teal);border-color:var(--teal);background:#00302bdd}
+.card.toL .tag.l,.card.toR .tag.r{opacity:1}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choices .btn{padding:14px 12px;font-size:.95rem;line-height:1.25;min-height:64px}
+.choices .btn.l{border:2px solid var(--amb);background:#2b1f0055}
+.choices .btn.r{border:2px solid var(--teal);background:#00302b55}
+.choices .btn.hot{filter:brightness(1.4);transform:scale(1.03)}
+.hint{font-size:.8rem;color:var(--mut);text-align:center}
+.fact h3{margin:12px 0 6px;color:var(--amb)}
+.deltas{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.delta{padding:4px 10px;border-radius:99px;font-weight:900;font-size:.85rem;background:#0b1232}
+.delta.up{color:#4ade80}.delta.dn{color:var(--cor)}
+.qopts{display:grid;gap:9px;margin-top:14px}
+.qopts .btn{text-align:left;justify-content:flex-start;border:1.5px solid var(--line)}
+
+/* RESULT */
+.res{text-align:center;max-width:720px;margin:10px auto}
+.score{font-size:clamp(3.2rem,10vw,5.5rem);font-weight:900;background:linear-gradient(90deg,var(--teal),var(--amb));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.stars{font-size:2.4rem;letter-spacing:6px}
+.stars span{display:inline-block;animation:pop .5s backwards cubic-bezier(.2,.9,.3,1.6)}
+.stars span:nth-child(2){animation-delay:.15s}.stars span:nth-child(3){animation-delay:.3s}
+@keyframes pop{from{transform:scale(0) rotate(-40deg)}}
+.badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:10px 0}
+.code{font-family:ui-monospace,Consolas,monospace;font-size:.72rem;background:#0b1232;border:1px dashed var(--line);padding:10px;border-radius:10px;word-break:break-all;text-align:left;max-height:74px;overflow:auto}
+
+/* TEACHER */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.kpi b{font-size:2rem;display:block;font-variant-numeric:tabular-nums}
+.kpi span{color:var(--mut);font-size:.85rem}
+.two{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+.bar{display:grid;grid-template-columns:150px 1fr 44px;gap:8px;align-items:center;font-size:.82rem;margin:7px 0}
+.bar .trk{height:12px;background:#0a1030;border-radius:99px;overflow:hidden}
+.bar .trk i{display:block;height:100%;border-radius:99px}
+.bar .lb{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--line)}
+th{color:var(--mut);font-size:.76rem;text-transform:uppercase;letter-spacing:.5px}
+td.n{font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto}
+.insight{border-left:4px solid var(--amb);background:#2b1f0044;padding:12px 14px;border-radius:0 12px 12px 0;margin:14px 0}
+
+/* PLANS */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.plan h3{font-size:1.2rem}
+.plan .pr{font-size:2rem;font-weight:900;margin:8px 0}
+.plan .pr small{font-size:.85rem;color:var(--mut);font-weight:600}
+.plan ul{padding-left:18px;color:var(--mut);font-size:.92rem;display:grid;gap:5px;margin-top:8px}
+.plan.star{border-color:var(--teal);box-shadow:0 0 0 2px #2dd4bf33}
+
+/* AYNI */
+#ayni{position:fixed;right:18px;bottom:18px;z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+#orb{width:66px;height:66px;border-radius:50%;border:0;cursor:pointer;position:relative;background:radial-gradient(circle at 35% 30%,#a5f3fc,#22d3ee 35%,#0e7490 75%);box-shadow:0 0 0 3px #22d3ee44,0 0 30px #22d3ee88}
+#orb::before,#orb::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid transparent;border-top-color:#67e8f9;border-bottom-color:#67e8f988;animation:spin 4s linear infinite}
+#orb::after{inset:-15px;border-top-color:#fbbf2499;border-bottom-color:transparent;animation-duration:7s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+#orb.talk{animation:talk .5s infinite alternate}
+@keyframes talk{to{transform:scale(1.12);box-shadow:0 0 0 6px #22d3ee55,0 0 50px #22d3ee}}
+#orb span{position:relative;font-weight:900;font-size:.7rem;color:#04202b;letter-spacing:1px}
+#bub{max-width:270px;background:#0e2a3a;border:1px solid #22d3ee66;padding:10px 13px;border-radius:14px 14px 4px 14px;font-size:.88rem;display:none;animation:fade .25s}
+#chat{width:min(350px,calc(100vw - 36px));background:#0c1530f2;border:1px solid #22d3ee66;border-radius:18px;display:none;flex-direction:column;overflow:hidden;backdrop-filter:blur(10px);box-shadow:0 20px 60px -10px #000}
+#chat.open{display:flex;animation:fade .25s}
+.ch-h{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line);font-weight:900}
+.ch-h small{font-weight:600;color:var(--mut)}
+.ch-h .x{margin-left:auto}
+#log{height:240px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:88%;padding:8px 12px;border-radius:14px;font-size:.88rem}
+.msg.ayni{background:#12344a;align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me{background:var(--card2);align-self:flex-end;border-bottom-right-radius:4px}
+.qc{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 8px}
+.qc button{border:1px solid #22d3ee66;background:transparent;border-radius:99px;padding:4px 10px;font-size:.76rem;cursor:pointer;color:#a5f3fc}
+.ch-f{display:flex;gap:6px;padding:10px;border-top:1px solid var(--line)}
+.ch-f input{flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:#0a1030;outline:0;min-width:0}
+.icb{width:38px;height:38px;border-radius:10px;border:0;background:var(--card2);cursor:pointer;font-size:1rem;flex:none}
+.icb.on{background:var(--cor);animation:pulse 1s infinite}
+
+#cert{display:none}
+@media (max-width:760px){
+ .hero,.gcols,.two{grid-template-columns:1fr}
+ .feats,.plans{grid-template-columns:1fr}
+ .kpis{grid-template-columns:repeat(2,1fr)}
+ .meter .nm{display:none}
+ .odsstrip{grid-template-columns:repeat(9,1fr)}
+ .bar{grid-template-columns:96px 1fr 40px}
+ .deckarea{min-height:0}
+ .gcols{gap:10px}
+ .gcols .scene svg{height:150px}
+}
+@media print{
+ :root{--bg:#fff;--card:#fff;--card2:#f1f1f1;--tx:#111;--mut:#555;--line:#ccc}
+ body{background:#fff}
+ #ayni,.noprint{display:none!important}
+ body.pc #app{display:none}
+ body.pc #cert{display:block;padding:40px}
+ .cert-in{border:10px double #0e7490;padding:50px 40px;text-align:center;color:#111;font-family:Georgia,serif}
+ .cert-in h1{font-size:2.2rem;margin:18px 0;color:#0e7490}
+ .cert-in h2{font-size:2.6rem;margin:14px 0;border-bottom:2px solid #111;display:inline-block;padding:0 30px 6px}
+ .cert-in p{font-size:1.1rem;margin:10px 0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<div id="ayni">
+  <div id="chat" role="dialog" aria-label="Asistente AYNI">
+    <div class="ch-h">◉ AYNI <small>tu copiloto 2030</small>
+      <button class="icb x" data-act="voice" id="vbtn" title="Activar o silenciar voz">🔊</button>
+      <button class="icb" data-act="orb" title="Cerrar">✕</button>
+    </div>
+    <div id="log"></div>
+    <div class="qc">
+      <button data-ask="Dame una pista">💡 Pista</button>
+      <button data-ask="¿Cómo voy?">📊 ¿Cómo voy?</button>
+      <button data-ask="¿Qué son los ODS?">🌍 ¿Qué son los ODS?</button>
+      <button data-ask="¿Cómo se juega?">🎮 Reglas</button>
+    </div>
+    <form class="ch-f" id="askf">
+      <input id="askin" type="text" placeholder="Pregúntale a AYNI…" autocomplete="off" aria-label="Pregunta para AYNI">
+      <button type="button" class="icb" id="mic" data-act="mic" title="Hablar">🎤</button>
+      <button class="icb" title="Enviar">➤</button>
+    </form>
+  </div>
+  <div id="bub"></div>
+  <button id="orb" data-act="orb" aria-label="Abrir asistente AYNI"><span>AYNI</span></button>
+</div>
+<div id="cert"></div>
+
+<script>
+/* ============ UTILIDADES ============ */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const clamp=v=>Math.max(0,Math.min(100,v));
+const sum=a=>a.reduce((x,y)=>x+y,0);
+const mem={};
+const store={get(k,d){if(k in mem)return mem[k];try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}},set(k,v){mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const enc=o=>'AYNI-'+btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+const dec=s=>JSON.parse(decodeURIComponent(escape(atob(String(s).trim().replace(/^AYNI-/,'')))));
+
+/* ============ DATOS ============ */
+const M=[{n:'Personas',i:'❤️',c:'#fb7185'},{n:'Planeta',i:'🌿',c:'#34d399'},{n:'Prosperidad',i:'🪙',c:'#fbbf24'},{n:'Alianzas',i:'🤝',c:'#60a5fa'}];
+const ODS={1:['Fin de la pobreza','#E5243B','que nadie viva sin lo básico para una vida digna'],2:['Hambre cero','#DDA63A','que todas las personas tengan alimentos sanos y suficientes'],3:['Salud y bienestar','#4C9F38','vidas sanas para todas las edades'],4:['Educación de calidad','#C5192D','que todos puedan aprender, sin importar dónde nacieron'],5:['Igualdad de género','#FF3A21','las mismas oportunidades para niñas, niños, mujeres y hombres'],6:['Agua limpia y saneamiento','#26BDE2','agua segura y baños dignos para todos'],7:['Energía asequible y no contaminante','#FCC30B','energía limpia que todos puedan pagar'],8:['Trabajo decente y crecimiento económico','#A21942','empleos justos y economías que crecen sin dejar a nadie atrás'],9:['Industria, innovación e infraestructura','#FD6925','construir e inventar soluciones que duren'],10:['Reducción de las desigualdades','#DD1367','acortar la distancia entre quienes tienen más y quienes tienen menos'],11:['Ciudades y comunidades sostenibles','#FD9D24','lugares seguros, limpios y bien organizados para vivir'],12:['Producción y consumo responsables','#BF8B2E','usar solo lo necesario y desperdiciar menos'],13:['Acción por el clima','#3F7E44','frenar el cambio climático y prepararnos para sus efectos'],14:['Vida submarina','#0A97D9','cuidar océanos, mares, ríos y lagunas'],15:['Vida de ecosistemas terrestres','#56C02B','proteger bosques, suelos y animales'],16:['Paz, justicia e instituciones sólidas','#00689D','comunidades sin violencia y autoridades honestas'],17:['Alianzas para lograr los objetivos','#19486A','trabajar juntos: nadie logra los objetivos solo']};
+// a = opción más sostenible, b = atajo. Efectos: [Personas, Planeta, Prosperidad, Alianzas]
+const CARDS=[
+{who:'Doña Rosa, agricultora',em:'👩‍🌾',ods:6,t:'El río que da agua a Villa Esperanza llega cada vez con menos caudal. ¿Qué hacemos?',a:{l:'Reparar fugas y tuberías',e:[5,10,-10,5]},b:{l:'Perforar un pozo rápido',e:[10,-15,-5,0]},f:'En muchas ciudades se pierde cerca de un tercio del agua potable por fugas en las tuberías antes de llegar a las casas.'},
+{who:'Ing. Marco, electricista',em:'👷',ods:7,t:'El motor a diésel que da luz al pueblo ya no da más. Hay que reemplazarlo.',a:{l:'Paneles solares comunitarios',e:[0,15,-15,5]},b:{l:'Otro motor diésel barato',e:[5,-15,5,0]},f:'El costo de producir electricidad con paneles solares ha caído cerca de 90 % desde 2010. Hoy es una de las fuentes más baratas.'},
+{who:'Prof. Lucía, directora',em:'👩‍🏫',ods:4,t:'La escuela no tiene biblioteca ni internet. El presupuesto alcanza para una sola obra.',a:{l:'Biblioteca y sala digital',e:[15,0,-10,5]},b:{l:'Remodelar la plaza para turistas',e:[-5,0,10,-5]},f:'Cada año adicional de estudios puede aumentar los ingresos futuros de una persona en cerca de 10 %.'},
+{who:'Don Julio, empresario',em:'🧑‍💼',ods:12,t:'Una fábrica quiere instalarse: traerá 200 empleos, pero bota sus desechos al río.',a:{l:'Solo si trata sus desechos',e:[5,0,5,-5]},b:{l:'Aceptarla sin condiciones',e:[5,-20,15,-5]},f:'Gran parte de las aguas residuales del mundo vuelve a ríos y mares sin ningún tratamiento.'},
+{who:'Camila, estudiante',em:'👧',ods:5,t:'Al concurso de robótica solo se inscribieron chicos. Las chicas dicen que nadie las invitó.',a:{l:'Club de ciencia con cupos iguales',e:[10,0,-5,10]},b:{l:'Dejarlo como está',e:[-10,0,0,-10]},f:'Según la UNESCO, solo cerca de 1 de cada 3 personas que investigan en ciencia en el mundo es mujer.'},
+{who:'Sr. Quispe, comerciante',em:'🧑‍🌾',ods:2,t:'El mercado bota cada día kilos de frutas y verduras “feas” que aún se pueden comer.',a:{l:'Banco de alimentos y compost',e:[10,10,-5,5]},b:{l:'Poner más tachos de basura',e:[0,-10,-5,0]},f:'Cerca de un tercio de los alimentos que se producen en el mundo se pierde o se desperdicia, según la FAO.'},
+{who:'Dra. Elena, médica',em:'👩‍⚕️',ods:3,t:'Hay un brote de enfermedades estomacales entre los niños del pueblo.',a:{l:'Campaña de lavado de manos y agua segura',e:[15,0,-10,5]},b:{l:'Esperar a que pase solo',e:[-20,0,0,-10]},f:'Lavarse las manos con agua y jabón puede reducir las enfermedades diarreicas entre 23 % y 40 %.'},
+{who:'Tomás, ciclista',em:'🧒',ods:11,t:'Autos y mototaxis llenan de humo y ruido el centro del pueblo.',a:{l:'Ciclovías y un día sin auto',e:[5,15,-10,-5]},b:{l:'Ampliar la pista para más autos',e:[0,-15,10,5]},f:'El transporte produce cerca de una cuarta parte de las emisiones de CO₂ relacionadas con la energía.'},
+{who:'Alcaldesa del pueblo vecino',em:'🧑‍⚖️',ods:17,t:'El pueblo vecino propone prestarnos su camión reciclador si compartimos nuestra posta médica.',a:{l:'Aceptar la alianza',e:[-5,10,5,15]},b:{l:'Cada pueblo con lo suyo',e:[0,-5,0,-15]},f:'“Ayni” es una palabra quechua que significa reciprocidad: hoy por ti, mañana por mí. Así trabajaban juntas las comunidades andinas.'},
+{who:'Abuela Marta',em:'👵',ods:15,t:'Una empresa ofrece mucho dinero por talar el bosque de la colina.',a:{l:'Protegerlo y hacer ecoturismo',e:[0,15,-5,5]},b:{l:'Vender el bosque',e:[0,-20,20,-10]},f:'Los bosques albergan a la mayoría de las especies de animales y plantas terrestres del planeta.'},
+{who:'Raúl, pescador',em:'🎣',ods:14,t:'La laguna se está quedando sin peces: se pesca más rápido de lo que se reproducen.',a:{l:'Veda temporal con apoyo a pescadores',e:[-5,15,-10,5]},b:{l:'Seguir pescando igual',e:[5,-15,10,-5]},f:'Más de un tercio de las poblaciones de peces del mundo se pesca en exceso, según la FAO.'},
+{who:'Sofía, programadora',em:'🧑‍💻',ods:9,t:'Un grupo de jóvenes propone crear una app para reportar baches, fugas y basura.',a:{l:'Financiar el proyecto',e:[5,5,-10,10]},b:{l:'No gastar en eso',e:[0,0,5,-10]},f:'Miles de millones de personas en el mundo todavía no tienen acceso a internet.'},
+{who:'Don Pedro, vecino',em:'🧓',ods:10,t:'Las familias de la zona alta aún no tienen agua ni luz. El centro también pide mejoras.',a:{l:'Llevar servicios a la zona alta',e:[15,0,-15,10]},b:{l:'Mejorar primero el centro',e:[-10,0,15,-10]},f:'Más de 2 000 millones de personas en el mundo no tienen agua potable gestionada de forma segura en sus casas.'},
+{who:'Asamblea de vecinos',em:'🗣️',ods:16,t:'Falta dinero en las cuentas de la obra del puente. Los vecinos piden explicaciones.',a:{l:'Publicar todas las cuentas',e:[0,0,-5,20]},b:{l:'Guardar silencio',e:[0,0,5,-20]},f:'Cuando las autoridades publican en qué gastan el dinero, las personas confían más y participan más.'},
+{who:'Comité de la fiesta',em:'🎉',ods:12,t:'Llega la fiesta del pueblo: se usarán miles de vasos y platos descartables.',a:{l:'Vasos retornables',e:[0,10,-5,5]},b:{l:'Descartables, como siempre',e:[5,-15,5,0]},f:'Una botella de plástico puede tardar cientos de años en degradarse.'},
+{who:'Servicio del clima',em:'🌡️',ods:13,t:'Se viene una ola de calor histórica. Hay que proteger al pueblo.',a:{l:'Plantar árboles y techos verdes',e:[5,15,-10,0]},b:{l:'Comprar aire acondicionado',e:[5,-10,-10,-5]},f:'Las calles con árboles pueden estar varios grados más frescas que las calles sin sombra.'},
+{who:'Jóvenes egresados',em:'🧑‍🎓',ods:8,t:'Muchos jóvenes terminan el colegio y no encuentran trabajo en el pueblo.',a:{l:'Talleres de oficios y emprendimiento',e:[10,5,-10,5]},b:{l:'Que busquen en la ciudad',e:[-15,0,-5,-5]},f:'En el mundo, cerca de 1 de cada 5 jóvenes no estudia ni trabaja.'},
+{who:'Sra. Flores, recicladora',em:'♻️',ods:11,t:'El botadero está lleno y la basura empieza a acumularse en las calles.',a:{l:'Reciclaje casa por casa',e:[0,15,-10,5]},b:{l:'Quemar la basura',e:[-15,-15,5,-5]},f:'Reciclar una lata de aluminio ahorra cerca del 95 % de la energía necesaria para fabricar una nueva.'},
+{who:'Familia Mamani',em:'👨‍👩‍👧',ods:1,t:'Varias familias perdieron su cosecha por la helada y no tienen cómo pasar el invierno.',a:{l:'Fondo solidario y semillas resistentes',e:[15,0,-15,10]},b:{l:'Que cada familia se las arregle',e:[-15,0,5,-10]},f:'Los desastres climáticos golpean más fuerte a las familias con menos recursos, y pueden hacerlas caer en la pobreza.'},
+{who:'Psic. Andrea, orientadora',em:'🧑‍⚕️',ods:3,t:'Varios estudiantes se sienten tristes y ansiosos, pero les da vergüenza pedir ayuda.',a:{l:'Espacio de escucha en la escuela',e:[15,0,-10,5]},b:{l:'Decirles que ya se les pasará',e:[-15,0,0,-5]},f:'Según la OMS, cerca de 1 de cada 7 adolescentes vive con algún problema de salud mental. Hablar de ello es el primer paso.'},
+{who:'Nico, estudiante',em:'🎒',ods:4,t:'Los chicos de los caseríos caminan dos horas para llegar a clases, y muchos ya dejaron de venir.',a:{l:'Bicicletas y transporte escolar',e:[15,5,-15,5]},b:{l:'Que ayuden en casa',e:[-15,0,5,-5]},f:'En el mundo, unos 250 millones de niños, niñas y adolescentes no van a la escuela, según la UNESCO.'},
+{who:'Sra. Julia, madre de familia',em:'👩',ods:5,t:'En muchas casas las niñas faltan a clases para cocinar y cuidar a sus hermanos. Los niños, no.',a:{l:'Campaña: las tareas se comparten',e:[10,0,-5,10]},b:{l:'No meterse en cada familia',e:[-10,0,0,-5]},f:'En el mundo, las mujeres dedican casi el triple de tiempo que los hombres a las tareas del hogar y de cuidado que nadie paga.'},
+{who:'Don Beto, del quiosco',em:'🧃',ods:2,t:'El quiosco escolar solo vende gaseosas y golosinas porque “es lo que más sale”.',a:{l:'Quiosco saludable con frutas locales',e:[10,5,-5,0]},b:{l:'Dejar que venda lo que quiera',e:[-10,0,5,0]},f:'La OMS recomienda que los azúcares añadidos sean menos del 10 % de la energía que consumimos cada día.'},
+{who:'Dani, usa silla de ruedas',em:'🧑‍🦽',ods:10,t:'Dani no puede entrar a la biblioteca ni al municipio: solo hay escaleras.',a:{l:'Rampas en todos los edificios',e:[10,0,-10,10]},b:{l:'Que alguien lo cargue',e:[-10,0,0,-10]},f:'Cerca de 1 de cada 6 personas en el mundo vive con alguna discapacidad, según la OMS.'},
+{who:'Maestro Óscar',em:'👨‍🏫',ods:8,t:'Algunos niños faltan a la escuela porque trabajan todo el día en la ladrillera.',a:{l:'Becas y empleo digno para sus padres',e:[15,0,-15,5]},b:{l:'Mirar a otro lado',e:[-15,0,10,-10]},f:'Más de 130 millones de niños y niñas en el mundo trabajan en lugar de estudiar o jugar.'},
+{who:'Tía Carmen, bodeguera',em:'🏪',ods:8,t:'Muchas familias piden dinero a un prestamista que cobra intereses altísimos.',a:{l:'Caja de ahorro comunal',e:[5,0,10,10]},b:{l:'Es problema de cada uno',e:[-10,0,-10,-5]},f:'Ahorrar un poco cada mes crea un fondo para emergencias y evita depender de préstamos caros.'},
+{who:'Don Félix, productor',em:'🚜',ods:9,t:'Con las lluvias el camino se vuelve lodo y la cosecha se pudre antes de llegar al mercado.',a:{l:'Mejorar el camino entre todos',e:[5,-5,15,5]},b:{l:'Construir un estadio nuevo',e:[5,-5,-15,-5]},f:'Cerca de mil millones de personas en zonas rurales viven lejos de un camino que se pueda usar todo el año.'},
+{who:'Club de ciencias',em:'🔬',ods:9,t:'Unos estudiantes inventaron un atrapanieblas para captar agua. Piden apoyo para construir diez.',a:{l:'Apoyar su invento',e:[5,10,-10,5]},b:{l:'Comprar agua en cisterna',e:[5,-5,-10,-5]},f:'Un atrapanieblas es una malla que atrapa las gotitas de la neblina y las convierte en agua que se puede usar.'},
+{who:'Vecinos de dos barrios',em:'⚽',ods:16,t:'Dos barrios se pelean cada tarde por el uso de la única cancha del pueblo.',a:{l:'Mesa de diálogo y turnos',e:[5,0,0,15]},b:{l:'Cerrar la cancha',e:[-10,0,0,-15]},f:'Cuando todas las partes son escuchadas antes de decidir, los acuerdos se respetan más y duran más tiempo.'},
+{who:'Comité electoral escolar',em:'🗳️',ods:16,t:'En las elecciones escolares, un candidato reparte regalos a cambio de votos.',a:{l:'Debate de propuestas, sin regalos',e:[0,0,-5,15]},b:{l:'Dejarlo pasar',e:[0,0,5,-20]},f:'Una de las metas del ODS 16 es reducir la corrupción y el soborno en todas sus formas.'},
+{who:'Rectora de la universidad',em:'🎓',ods:17,t:'La universidad ofrece enviar estudiantes voluntarios de salud e ingeniería si el pueblo les da alojamiento.',a:{l:'Recibirlos y trabajar juntos',e:[10,5,-10,15]},b:{l:'No, es mucho gasto',e:[-5,0,5,-10]},f:'El ODS 17 recuerda que gobiernos, empresas, escuelas y vecinos deben cooperar: nadie logra los objetivos solo.'},
+{who:'Jardinero municipal',em:'🧑‍🔧',ods:6,t:'Hay sequía, pero los parques se siguen regando con agua potable.',a:{l:'Regar con agua reutilizada',e:[0,15,-10,5]},b:{l:'Seguir regando igual',e:[-10,-15,0,-5]},f:'La agricultura y el riego usan cerca del 70 % de toda el agua dulce que extrae la humanidad.'},
+{who:'Defensa Civil',em:'🚨',ods:13,t:'Cada año el río crece más. Las casas de la orilla están en peligro.',a:{l:'Alerta temprana y zonas seguras',e:[10,5,-15,5]},b:{l:'Un muro solo para el centro',e:[-5,-5,-5,-15]},f:'Avisar de una tormenta con 24 horas de anticipación puede reducir los daños en cerca de 30 %.'},
+{who:'Guardaparques Inti',em:'🦜',ods:15,t:'En la feria venden loros y monos del bosque como mascotas.',a:{l:'Prohibirlo y crear un centro de rescate',e:[0,15,-10,0]},b:{l:'Permitir la venta',e:[0,-15,10,-5]},f:'Cerca de un millón de especies de animales y plantas están en peligro de extinción.'}
+];
+const PACKS={all:['🌍 Misión completa',null],pla:['🌿 Planeta vivo',[6,7,11,12,13,14,15]],per:['❤️ Personas primero',[1,2,3,4,5,10]],pro:['🤝 Prosperidad y alianzas',[8,9,16,17]]};
+const QUIZ=[
+{q:'¿Cuántos Objetivos de Desarrollo Sostenible aprobó la ONU en 2015?',o:['10','17','25'],c:1,ods:17},
+{q:'¿En qué año el mundo se comprometió a cumplir los ODS?',o:['2030','2050','2100'],c:0,ods:17},
+{q:'¿Qué ODS busca agua limpia y saneamiento para todos?',o:['ODS 2','ODS 13','ODS 6'],c:2,ods:6},
+{q:'¿Qué foco consume menos energía para dar la misma luz?',o:['Incandescente','LED','Halógeno'],c:1,ods:7},
+{q:'“Acción por el clima” es el…',o:['ODS 13','ODS 4','ODS 9'],c:0,ods:13},
+{q:'¿Qué significa “ayni” en quechua?',o:['Competencia','Riqueza','Reciprocidad: hoy por ti, mañana por mí'],c:2,ods:17},
+{q:'¿Cuál de estas acciones ayuda al ODS 12 (consumo responsable)?',o:['Reparar antes que comprar nuevo','Usar descartables','Dejar la luz prendida'],c:0,ods:12},
+{q:'¿Qué actividad usa más agua dulce en el mundo?',o:['Las duchas','La agricultura y el riego','Las piscinas'],c:1,ods:6},
+{q:'¿Qué ODS busca acabar con la corrupción y el soborno?',o:['ODS 16','ODS 7','ODS 14'],c:0,ods:16},
+{q:'¿Cuál de estas es una fuente de energía renovable?',o:['El carbón','El petróleo','El sol'],c:2,ods:7},
+{q:'¿Qué ODS busca las mismas oportunidades para niñas y niños?',o:['ODS 9','ODS 5','ODS 15'],c:1,ods:5},
+{q:'¿Para qué sirve ahorrar un poco cada mes?',o:['Para tener un fondo de emergencias','Para gastar más en golosinas','No sirve de nada'],c:0,ods:8}
+];
+const PROF=[['Corazón de la Comunidad','Pusiste primero a las personas.'],['Guardián del Planeta','Cuidaste la naturaleza en cada decisión.'],['Mente Emprendedora','Hiciste crecer la economía del pueblo.'],['Tejedor de Alianzas','Lograste que todos trabajen juntos.']];
+const LOSE=['La gente perdió la esperanza y dejó el pueblo.','El ambiente colapsó: sin agua ni aire limpio no se puede vivir.','El pueblo se quedó sin recursos para funcionar.','Se rompió la confianza: ya nadie quiere colaborar.'];
+const GRADES=['5.º primaria','6.º primaria','1.º secundaria','2.º secundaria','3.º secundaria','4.º secundaria','5.º secundaria'];
+const AVS=['🦙','🦊','🐆','🦜','🐸','🦋','🐢','🦅'];
+
+/* ============ ESTADO ============ */
+const S={screen:'home'};
+let P=store.get('ayni_player',null), G=null, last=null, selAv=AVS[0];
+const app=$('#app');
+const cur=()=>G&&G.deck[G.i];
+const chip=n=>`<span class="chip" style="background:${ODS[n][1]}" title="${esc(ODS[n][0])}">ODS ${n} · ${esc(ODS[n][0])}</span>`;
+const chipS=n=>`<span class="chip" style="background:${ODS[n][1]}" title="${esc(ODS[n][0])}">ODS ${n}</span>`;
+
+/* ============ ESCENA VIVA ============ */
+function town(m){
+  const [per,pla,pro,paz]=m,t=pla/100;
+  const mix=(a,b)=>'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*t))+')';
+  const sky1=mix([112,104,98],[56,160,240]),sky2=mix([196,176,150],[190,232,255]),grass=mix([150,128,78],[80,200,120]),riv=mix([122,100,62],[70,180,250]);
+  let s=`<svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Vista de Villa Esperanza"><defs><linearGradient id="sk${G?1:0}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sky1}"/><stop offset="1" stop-color="${sky2}"/></linearGradient></defs><rect width="400" height="200" fill="url(#sk${G?1:0})"/>`;
+  s+=`<circle cx="332" cy="38" r="20" fill="#fde047" opacity="${.35+.65*t}"/>`;
+  s+=`<polygon points="-10,125 70,45 150,125" fill="#55607f"/><polygon points="90,125 190,30 290,125" fill="#667299"/><polygon points="230,125 320,60 410,125" fill="#55607f"/>`;
+  if(pla>40)s+=`<polygon points="190,30 172,47 183,44 190,52 198,43 208,47" fill="#fff" opacity=".9"/><polygon points="70,45 58,57 70,54 82,57" fill="#fff" opacity=".85"/>`;
+  s+=`<path d="M0 122 Q200 100 400 122 V200 H0Z" fill="${grass}"/>`;
+  s+=`<path d="M158 200 C178 170 146 148 184 110 L198 110 C172 148 214 170 208 200Z" fill="${riv}"/>`;
+  const T=[[20,120],[52,130],[86,117],[118,131],[236,119],[266,131],[302,117],[346,128],[382,119]],nt=Math.round(t*9);
+  T.forEach(([x,y],i)=>{s+=i<nt?`<rect x="${x-2}" y="${y-4}" width="4" height="12" fill="#7c4a1e"/><circle cx="${x}" cy="${y-11}" r="10" fill="#1f9d55"/><circle cx="${x-4}" cy="${y-14}" r="5" fill="#34c06e"/>`:`<rect x="${x-3}" y="${y+2}" width="6" height="5" rx="1" fill="#6b4423"/>`});
+  const H=[[34,150],[92,160],[232,152],[286,162],[336,150],[376,164]],nh=Math.max(1,Math.round(pro/100*6)),col=['#f97316','#e11d48','#8b5cf6','#0ea5e9','#eab308','#14b8a6'];
+  H.forEach(([x,y],i)=>{if(i<nh)s+=`<rect x="${x-13}" y="${y-14}" width="26" height="18" fill="#fef3c7"/><polygon points="${x-17},${y-14} ${x},${y-28} ${x+17},${y-14}" fill="${col[i]}"/><rect x="${x-4}" y="${y-8}" width="8" height="12" fill="#7c4a1e"/><rect x="${x+5}" y="${y-10}" width="5" height="5" fill="${paz>40?'#fde047':'#475569'}"/>`});
+  if(pro>=75)s+=`<rect x="120" y="140" width="22" height="34" fill="#cbd5e1"/><rect x="124" y="145" width="5" height="5" fill="#38bdf8"/><rect x="133" y="145" width="5" height="5" fill="#38bdf8"/><rect x="124" y="155" width="5" height="5" fill="#38bdf8"/><rect x="133" y="155" width="5" height="5" fill="#38bdf8"/>`;
+  if(pla<35)s+=`<g fill="#3f3f46" opacity="${(.9-t*1.5).toFixed(2)}"><ellipse cx="90" cy="50" rx="60" ry="14"/><ellipse cx="250" cy="36" rx="80" ry="16"/><ellipse cx="350" cy="70" rx="50" ry="12"/></g>`;
+  if(pla<45)s+=`<text x="212" y="186" font-size="11">🗑️</text><text x="140" y="192" font-size="10">🛢️</text>`;
+  if(pla>=70)s+=`<text x="60" y="80" font-size="12">🦅</text><text x="176" y="150" font-size="10">🐟</text>`;
+  const E=['🧑','👧','👴','👩','🧒','👨','👵'],X=[18,62,112,224,258,312,358],np=Math.round(per/100*7);
+  X.forEach((x,i)=>{if(i<np)s+=`<text x="${x}" y="${186+(i%2)*7}" font-size="15">${E[i]}</text>`});
+  if(per<30)s+=`<text x="282" y="190" font-size="13">🧳</text>`;
+  if(paz>=60){s+=`<path d="M47 124 Q140 138 232 126" stroke="#fff" stroke-width="1" fill="none"/>`;['#f43f5e','#facc15','#22d3ee','#a78bfa','#4ade80','#fb923c'].forEach((c,i)=>{const x=65+i*27,y=127+Math.sin((i+1)/7*Math.PI)*6;s+=`<polygon points="${x},${y} ${x+8},${y} ${x+4},${y+9}" fill="${c}"/>`});s+=`<text x="300" y="100" font-size="14">🪁</text>`}
+  if(paz<30)s+=`<text x="60" y="176" font-size="13">💢</text><text x="330" y="180" font-size="13">💢</text>`;
+  return s+'</svg>';
+}
+
+/* ============ VISTAS ============ */
+const V={};
+V.home=()=>`
+<div class="row sp fade"><div class="brand"><div class="logo"></div>AYNI · MISIÓN 2030</div>
+<div class="row"><button class="btn ghost sm" data-act="go" data-to="teacher">👩‍🏫 Panel docente</button><button class="btn ghost sm" data-act="go" data-to="plans">🏫 Instituciones</button></div></div>
+<section class="hero fade">
+  <div><h1>Gobierna tu pueblo.<br><em>Salva el 2030.</em></h1>
+  <p>Eres la nueva autoridad escolar de Villa Esperanza. En 12 meses tomarás decisiones reales sobre agua, energía, salud y justicia. Cada elección cambia tu pueblo… y te enseña un Objetivo de Desarrollo Sostenible.</p>
+  <div class="row"><button class="btn pri big" data-act="go" data-to="onboard">▶ Jugar ahora</button><button class="btn big" data-act="orb">◉ Hablar con AYNI</button></div>
+  <p style="font-size:.85rem;margin-top:14px">⏱ 10 minutos por partida · 📴 Funciona sin internet · 🎧 Lee las tarjetas en voz alta</p></div>
+  <div class="scene">${town([78,88,66,80])}<div class="scene-cap">Villa Esperanza</div></div>
+</section>
+<div class="odsstrip fade">${Object.keys(ODS).map(n=>`<span style="background:${ODS[n][1]}" data-ask="¿Qué es el ODS ${n}?" title="${esc(ODS[n][0])}">${n}</span>`).join('')}</div>
+<p class="mut" style="font-size:.8rem;text-align:center">Toca un número y AYNI te explica ese objetivo.</p>
+<div class="feats fade">
+  <div class="panel feat"><div class="ic">🃏</div><h3>Decide deslizando</h3><p>Sin manuales: desliza la tarjeta a la izquierda o a la derecha. Tu pueblo cambia ante tus ojos.</p></div>
+  <div class="panel feat"><div class="ic">◉</div><h3>AYNI, tu copiloto</h3><p>Un asistente con voz que lee, da pistas y responde preguntas sobre los ODS. Escríbele o háblale.</p></div>
+  <div class="panel feat"><div class="ic">📊</div><h3>Evidencia para el aula</h3><p>El docente ve qué ODS domina cada estudiante, exporta notas e imprime certificados.</p></div>
+</div>`;
+
+V.onboard=()=>`
+<button class="btn ghost sm" data-act="home">← Inicio</button>
+<div class="panel form fade"><h2>¿Quién va a gobernar?</h2><p class="mut">Solo guardamos estos datos en este dispositivo.</p>
+<label for="fn">Tu nombre o apodo</label><input id="fn" type="text" maxlength="24" placeholder="Ej. Valeria" value="${P?esc(P.n):''}">
+<label for="fg">Grado</label><select id="fg">${GRADES.map(g=>`<option${P&&P.g===g?' selected':''}>${g}</option>`).join('')}</select>
+<label for="fc">Código de aula <span class="mut">(opcional)</span></label><input id="fc" type="text" maxlength="12" placeholder="Ej. 2B" value="${P?esc(P.c):''}">
+<label for="fk">Elige tu misión</label><select id="fk">${Object.keys(PACKS).map(k=>`<option value="${k}"${P&&P.k===k?' selected':''}>${PACKS[k][0]}</option>`).join('')}</select>
+<label>Elige tu avatar</label><div class="avs">${AVS.map(a=>`<button type="button" data-act="av" data-a="${a}" class="${a===selAv?'on':''}" aria-label="Avatar ${a}">${a}</button>`).join('')}</div>
+<button class="btn pri big" style="width:100%;margin-top:22px" data-act="start">Comenzar misión ▶</button></div>`;
+
+const metersHTML=m=>M.map((x,i)=>`<div class="meter${m[i]<=20?' low':''}" data-i="${i}"><div class="top"><span class="mi">${x.i}</span><span class="nm">${x.n}</span><span class="val">${m[i]}</span></div><div class="mb"><i style="width:${m[i]}%;background:${x.c}"></i></div><b class="dot"></b></div>`).join('');
+const cardHTML=c=>`<div class="card drag" id="card"><span class="tag l">${esc(c.L.l)}</span><span class="tag r">${esc(c.R.l)}</span>${chip(c.ods)}
+<div class="who"><span class="em">${c.em}</span><b>${esc(c.who)}</b></div><p class="t">${esc(c.t)}</p></div>
+<div class="choices"><button class="btn l" data-act="pick" data-side="L">⬅ ${esc(c.L.l)}</button><button class="btn r" data-act="pick" data-side="R">${esc(c.R.l)} ➡</button></div>
+<div class="hint">Desliza la tarjeta, toca un botón o usa las flechas ⬅ ➡ · Los puntos blancos muestran qué indicadores cambiarán</div>`;
+const quizHTML=c=>`<div class="card" id="card"><span class="chip" style="background:#7c3aed">⚡ Reto relámpago</span>
+<div class="who"><span class="em">🧠</span><b>Responde bien y todo el pueblo gana +5</b></div><p class="t">${esc(c.q)}</p>
+<div class="qopts">${c.o.map((o,i)=>`<button class="btn" data-act="quiz" data-i="${i}">${'ABC'[i]}. ${esc(o)}</button>`).join('')}</div></div>`;
+
+V.game=()=>{const c=cur();return `
+<div class="gbar"><div class="pl"><span class="av">${P.av}</span><b>${esc(P.n)}</b></div>
+<div class="turn">${(PACKS[P.k]||PACKS.all)[0]} · Mes <b>${G.i+1}</b> de ${G.deck.length}<div class="prog"><i style="width:${G.i/G.deck.length*100}%"></i></div></div>
+<button class="btn ghost sm" data-act="home">Salir</button></div>
+<div class="meters" id="meters">${metersHTML(G.m)}</div>
+<div class="gcols"><div class="scene" id="scene">${town(G.m)}<div class="scene-cap">Villa Esperanza</div></div>
+<div class="deckarea" id="deck">${c.quiz?quizHTML(c):cardHTML(c)}</div></div>`};
+
+V.result=()=>{const r=last,st=r.s>=700?3:r.s>=550?2:1,al=Object.keys(r.o).filter(k=>r.o[k]>0);return `
+<div class="res fade"><p class="mut">${r.w?'¡Completaste los 12 meses!':'Tu gestión terminó antes de tiempo'}</p>
+<div class="stars">${'<span>⭐</span>'.repeat(st)}${'<span style="opacity:.2">⭐</span>'.repeat(3-st)}</div>
+<div class="score">${r.s}</div><p class="mut">puntos de impacto</p>
+<h2 style="margin:14px 0 4px">${r.w?'🏅 '+PROF[r.p][0]:'💔 Villa Esperanza necesita otra oportunidad'}</h2>
+<p class="mut">${r.w?PROF[r.p][1]:esc(r.why||'')} Acertaste ${r.q[0]} de ${r.q[1]} retos.</p>
+<div class="scene" style="margin:16px 0">${town(r.m)}<div class="scene-cap">Así quedó tu pueblo</div></div>
+<div class="meters">${metersHTML(r.m)}</div>
+${al.length?`<p style="font-weight:800;margin-top:8px">Objetivos que impulsaste</p><div class="badges">${al.map(n=>chip(+n)).join('')}</div>`:''}
+<div class="row" style="justify-content:center;margin:18px 0"><button class="btn pri big" data-act="again">↻ Jugar de nuevo</button><button class="btn amb" data-act="cert">🎓 Imprimir certificado</button><button class="btn ghost" data-act="home">Inicio</button></div>
+<div class="panel" style="text-align:left"><b>📤 Código para tu docente</b><p class="mut" style="font-size:.85rem;margin:4px 0 8px">Si jugaste en tu propio equipo, copia este código y envíaselo. Así tu resultado llega al panel del aula sin necesidad de internet.</p>
+<div class="code" id="rcode">${enc(r)}</div><button class="btn sm" style="margin-top:8px" data-act="copy">📋 Copiar código</button></div></div>`};
+
+V.teacher=()=>{const R=store.get('ayni_results',[]),n=R.length;
+  const head=`<div class="row sp"><button class="btn ghost sm noprint" data-act="home">← Inicio</button><div class="brand"><div class="logo"></div>Panel docente</div></div>`;
+  const tools=`<div class="panel noprint" style="margin-top:14px"><b>Agregar resultados</b><p class="mut" style="font-size:.85rem">Las partidas jugadas en este dispositivo se guardan solas. Para las de otros equipos, pega aquí el código del estudiante.</p>
+  <div class="row" style="margin-top:8px"><input id="imp" type="text" placeholder="AYNI-…" style="flex:1;min-width:180px" aria-label="Código de resultado"><button class="btn pri" data-act="import">Importar</button><button class="btn" data-act="demo">✨ Cargar aula de ejemplo</button></div></div>`;
+  if(!n)return head+`<div class="panel fade" style="margin-top:14px;text-align:center;padding:40px 20px"><div style="font-size:3rem">📭</div><h2>Aún no hay partidas registradas</h2><p class="mut">Pide a tus estudiantes que jueguen, o carga un aula de ejemplo para ver cómo luce el reporte.</p></div>`+tools;
+  const avg=Math.round(sum(R.map(r=>r.s))/n),qt=sum(R.map(r=>r.q[1])),qa=qt?Math.round(sum(R.map(r=>r.q[0]))/qt*100):0;
+  const seen={},ali={};R.forEach(r=>{for(const k in r.t)seen[k]=(seen[k]||0)+r.t[k];for(const k in r.o)ali[k]=(ali[k]||0)+r.o[k]});
+  const ts=sum(Object.values(seen)),sus=ts?Math.round(sum(Object.values(ali))/ts*100):0;
+  const rows=Object.keys(seen).map(k=>({k:+k,p:Math.round((ali[k]||0)/seen[k]*100),n:seen[k]})).sort((a,b)=>a.p-b.p);
+  const weak=rows[0],strong=rows[rows.length-1],mavg=M.map((_,i)=>Math.round(sum(R.map(r=>r.m[i]))/n));
+  return head+`
+<div class="kpis fade"><div class="panel kpi"><b>${n}</b><span>partidas registradas</span></div><div class="panel kpi"><b>${avg}</b><span>puntaje promedio</span></div><div class="panel kpi"><b>${qa}%</b><span>acierto en retos de conocimiento</span></div><div class="panel kpi"><b>${sus}%</b><span>decisiones sostenibles</span></div></div>
+${weak?`<div class="insight"><b>💡 Sugerencia para tu próxima clase:</b> el grupo tiene más dificultad con el <b>ODS ${weak.k} · ${esc(ODS[weak.k][0])}</b> (${weak.p}% de decisiones sostenibles). Su punto fuerte es el <b>ODS ${strong.k} · ${esc(ODS[strong.k][0])}</b> (${strong.p}%).</div>`:''}
+<div class="two"><div class="panel"><h3>Decisiones sostenibles por ODS</h3><p class="mut" style="font-size:.8rem;margin-bottom:8px">Porcentaje de veces que el grupo eligió la opción sostenible.</p>
+${rows.map(r=>`<div class="bar"><span class="lb" title="${esc(ODS[r.k][0])}"><b>ODS ${r.k}</b> ${esc(ODS[r.k][0])}</span><div class="trk"><i style="width:${r.p}%;background:${ODS[r.k][1]}"></i></div><span class="n">${r.p}%</span></div>`).join('')}</div>
+<div class="panel"><h3>Estado promedio de los pueblos</h3><p class="mut" style="font-size:.8rem;margin-bottom:8px">Cómo terminan los cuatro indicadores.</p>
+${M.map((x,i)=>`<div class="bar" style="grid-template-columns:110px 1fr 40px"><span>${x.i} ${x.n}</span><div class="trk"><i style="width:${mavg[i]}%;background:${x.c}"></i></div><span>${mavg[i]}</span></div>`).join('')}
+<div class="scene" style="margin-top:12px">${town(mavg)}<div class="scene-cap">Pueblo promedio del aula</div></div></div></div>
+<div class="panel" style="margin-top:14px"><div class="row sp"><h3>Estudiantes</h3><div class="row noprint"><button class="btn sm" data-act="csv">⬇ Exportar CSV</button><button class="btn sm" data-act="print">🖨 Imprimir reporte</button><button class="btn sm ghost" data-act="clear">🗑 Borrar todo</button></div></div>
+<div class="tw"><table><thead><tr><th>Estudiante</th><th>Grado</th><th>Aula</th><th>Puntaje</th><th>Retos</th><th>Perfil</th><th>ODS impulsados</th><th>Fecha</th></tr></thead><tbody>
+${[...R].sort((a,b)=>b.s-a.s).map(r=>`<tr><td><b>${esc(r.n)}</b></td><td>${esc(r.g)}</td><td>${esc(r.c||'—')}</td><td class="n"><b>${r.s}</b></td><td class="n">${r.q[0]}/${r.q[1]}</td><td>${r.w?esc(PROF[r.p][0]):'No completó'}</td><td>${Object.keys(r.o).filter(k=>r.o[k]>0).map(k=>chipS(+k)).join(' ')}</td><td>${esc(r.d)}</td></tr>`).join('')}
+</tbody></table></div></div>`+tools};
+
+V.plans=()=>`
+<div class="row sp"><button class="btn ghost sm" data-act="home">← Inicio</button><div class="brand"><div class="logo"></div>Para instituciones</div></div>
+<div class="panel fade" style="margin-top:14px"><h2>Educación ODS que sí se mide</h2>
+<p class="mut" style="margin-top:6px;max-width:70ch">Los colegios deben trabajar ciudadanía, ambiente y Agenda 2030, pero casi no tienen material interactivo ni forma de evidenciar lo aprendido. AYNI convierte una sesión de clase en una partida de 10 minutos y entrega al docente un reporte por estudiante y por ODS.</p></div>
+<div class="feats"><div class="panel feat"><div class="ic">📴</div><h3>Sin internet ni instalación</h3><p>Un solo archivo que corre en cualquier navegador, incluso en laboratorios antiguos o tablets.</p></div>
+<div class="panel feat"><div class="ic">🎯</div><h3>Contenido a medida</h3><p>Cada institución puede patrocinar un paquete de misiones con su tema: agua, finanzas, reciclaje, seguridad vial.</p></div>
+<div class="panel feat"><div class="ic">📑</div><h3>Reportes listos</h3><p>Exporta notas a Excel, imprime el reporte del aula y entrega certificados a los estudiantes.</p></div></div>
+<div class="plans">
+<div class="panel plan"><h3>Aula piloto</h3><div class="pr">Gratis</div><ul><li>1 docente, 1 aula</li><li>Juego completo y asistente AYNI</li><li>Panel docente en el dispositivo</li><li>Ideal para demostrar en una clase</li></ul></div>
+<div class="panel plan star"><h3>Colegio</h3><div class="pr">US$ 2 <small>por estudiante al año</small></div><ul><li>Aulas y docentes ilimitados</li><li>Panel en la nube con todas las secciones</li><li>Certificados con el logo del colegio</li><li>Capacitación docente de 1 hora</li></ul></div>
+<div class="panel plan"><h3>Aliado / Patrocinio</h3><div class="pr">Desde US$ 3 000 <small>por campaña</small></div><ul><li>Para municipios, ONG, empresas de agua o energía, bancos</li><li>Paquete de misiones con su tema y marca</li><li>Reporte de impacto: estudiantes alcanzados y aprendizaje por ODS</li><li>Sirve para memorias de sostenibilidad</li></ul></div></div>
+<p class="mut" style="font-size:.8rem;margin-top:12px">Precios referenciales para validar con clientes. La nube y los paquetes patrocinados forman parte de la hoja de ruta; esta versión demuestra el producto completo en un solo dispositivo.</p>`;
+
+function show(s){S.screen=s;app.innerHTML=V[s]();window.scrollTo(0,0);if(s==='game'){bindCard();const c=cur();if(voiceOn)speak(c.quiz?'Reto relámpago. '+c.q:c.who+' dice: '+c.t+' ¿'+c.L.l+', o '+c.R.l+'?')}else if(s==='onboard')setTimeout(()=>{const f=$('#fn');f&&f.focus()},50)}
+
+/* ============ JUEGO ============ */
+function newGame(){
+  const pk=(PACKS[P.k]||PACKS.all)[1];
+  const deck=shuffle(pk?CARDS.filter(c=>pk.includes(c.ods)):CARDS).slice(0,10).map(c=>{const f=Math.random()<.5;return{...c,L:{...(f?c.b:c.a),s:!f},R:{...(f?c.a:c.b),s:f}}});
+  const qs=shuffle(QUIZ).slice(0,2).map(q=>({...q,quiz:true}));
+  deck.splice(3,0,qs[0]);deck.splice(8,0,qs[1]);
+  G={deck,i:0,m:[50,50,50,50],al:{},seen:{},qok:0,qn:0,lock:false};
+  show('game');
+}
+function updateHUD(){document.querySelectorAll('#meters .meter').forEach((el,i)=>{el.classList.toggle('low',G.m[i]<=20);$('.val',el).textContent=G.m[i];$('.mb i',el).style.width=G.m[i]+'%'});$('#scene').innerHTML=town(G.m)+'<div class="scene-cap">Villa Esperanza</div>'}
+function preview(side){const c=cur(),el=$('#card');if(!c||c.quiz||!el)return;el.classList.toggle('toL',side==='L');el.classList.toggle('toR',side==='R');
+  document.querySelectorAll('.choices .btn').forEach(b=>b.classList.toggle('hot',b.dataset.side===side));
+  document.querySelectorAll('#meters .dot').forEach((d,i)=>{const e=side?Math.abs(c[side].e[i]):0;d.className='dot'+(e?' on':'')+(e>=15?' big':'')})}
+function bindCard(){const el=$('#card'),c=cur();if(!el||c.quiz)return;let sx=0,dx=0,drag=false;
+  el.onpointerdown=e=>{if(G.lock)return;drag=true;sx=e.clientX;dx=0;try{el.setPointerCapture(e.pointerId)}catch(_){}el.style.transition='none'};
+  el.onpointermove=e=>{if(!drag)return;dx=e.clientX-sx;el.style.transform=`translateX(${dx}px) rotate(${dx/18}deg)`;preview(dx>30?'R':dx<-30?'L':null)};
+  el.onpointerup=el.onpointercancel=()=>{if(!drag)return;drag=false;el.style.transition='';if(Math.abs(dx)>90)pick(dx>0?'R':'L');else{el.style.transform='';preview(null)}};
+  document.querySelectorAll('.choices .btn').forEach(b=>{b.onmouseenter=()=>preview(b.dataset.side);b.onmouseleave=()=>preview(null)});
+}
+function deltas(e){return e.map((v,i)=>v?`<span class="delta ${v>0?'up':'dn'}">${M[i].i} ${v>0?'+':''}${v}</span>`:'').join('')}
+function pick(side){const c=cur();if(!c||c.quiz||G.lock)return;G.lock=true;const o=c[side],el=$('#card');
+  G.m=G.m.map((v,i)=>clamp(v+o.e[i]));G.seen[c.ods]=(G.seen[c.ods]||0)+1;if(o.s)G.al[c.ods]=(G.al[c.ods]||0)+1;
+  preview(null);el.style.transform=`translateX(${side==='R'?520:-520}px) rotate(${side==='R'?24:-24}deg)`;el.style.opacity=0;
+  setTimeout(()=>{updateHUD();$('#deck').innerHTML=`<div class="card fact">${chip(c.ods)}<p style="margin-top:10px" class="mut">Elegiste: <b style="color:var(--tx)">${esc(o.l)}</b></p><div class="deltas">${deltas(o.e)}</div><h3>💡 ¿Sabías que…?</h3><p class="t">${esc(c.f)}</p></div><button class="btn pri big" data-act="next" id="nx">Continuar →</button>`;$('#nx').focus();if(voiceOn)speak(c.f)},240);
+}
+function quiz(i){const c=cur();if(!c||!c.quiz||G.lock)return;G.lock=true;const ok=i===c.c;G.qn++;G.seen[c.ods]=(G.seen[c.ods]||0);if(ok){G.qok++;G.m=G.m.map(v=>clamp(v+5))}
+  updateHUD();const msg=ok?'¡Correcto! Todo el pueblo gana 5 puntos.':'Casi. La respuesta correcta es: '+c.o[c.c]+'.';
+  $('#deck').innerHTML=`<div class="card fact"><span class="chip" style="background:${ok?'#16a34a':'#e11d48'}">${ok?'✔ ¡Correcto!':'✘ Casi…'}</span><p class="t" style="margin-top:12px">${esc(c.q)}</p><h3>${ok?'🎉 +5 para todo el pueblo':'La respuesta era:'}</h3><p class="t"><b>${esc(c.o[c.c])}</b></p></div><button class="btn pri big" data-act="next" id="nx">Continuar →</button>`;$('#nx').focus();if(voiceOn)speak(msg)}
+function next(){if(!G)return;G.lock=false;const dead=G.m.findIndex(v=>v<=0);if(dead>=0)return end(false,dead);G.i++;if(G.i>=G.deck.length)return end(true);show('game')}
+function end(win,dead){const avg=sum(G.m)/4,s=Math.round(avg*8)+G.qok*50+(win?100:0),p=G.m.indexOf(Math.max(...G.m));
+  last={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),n:P.n,g:P.g,c:P.c,s,m:G.m,o:G.al,t:G.seen,q:[G.qok,G.qn],p,w:win?1:0,d:new Date().toLocaleDateString('es'),why:win?'':LOSE[dead]};
+  for(const k in last.t)if(!last.t[k])delete last.t[k];
+  const R=store.get('ayni_results',[]);R.push(last);store.set('ayni_results',R);G=null;show('result');
+  say(win?`¡Misión cumplida, ${P.n}! Lograste ${s} puntos. Tu perfil es ${PROF[p][0]}.`:`${LOSE[dead]} No te rindas, ${P.n}: los grandes líderes aprenden de cada intento.`)}
+
+/* ============ ASISTENTE AYNI ============ */
+let voiceOn=store.get('ayni_voice',true),lastSay='',bubT;
+const orb=$('#orb'),chat=$('#chat'),log=$('#log'),bub=$('#bub');
+function addMsg(w,t){const d=document.createElement('div');d.className='msg '+w;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight}
+function speak(t){if(!('speechSynthesis' in window))return;try{speechSynthesis.cancel();if(!voiceOn)return;const u=new SpeechSynthesisUtterance(t.replace(/[\u{1F000}-\u{1FFFF}\u{2190}-\u{27BF}\u{FE0F}\u{200D}«»◉]/gu,''));u.lang='es-ES';const v=speechSynthesis.getVoices().find(v=>/^es/i.test(v.lang));if(v){u.voice=v;u.lang=v.lang}u.rate=1.03;u.pitch=1.1;u.onstart=()=>orb.classList.add('talk');u.onend=u.onerror=()=>orb.classList.remove('talk');speechSynthesis.speak(u)}catch(e){}}
+function say(t){lastSay=t;addMsg('ayni',t);if(!chat.classList.contains('open')){bub.textContent=t;bub.style.display='block';clearTimeout(bubT);bubT=setTimeout(()=>bub.style.display='none',7000)}speak(t)}
+function setVoice(){$('#vbtn').textContent=voiceOn?'🔊':'🔇'}
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function reply(raw){const q=norm(raw);let m;
+  if((m=q.match(/ods\s*(\d{1,2})|objetivo\s*(\d{1,2})/))){const n=+(m[1]||m[2]);if(ODS[n])return `El ODS ${n} es «${ODS[n][0]}». Busca ${ODS[n][2]}.`;return 'Los ODS van del 1 al 17. Prueba con otro número.'}
+  if(/repite|otra vez|no entendi/.test(q))return lastSay||'Aún no he dicho nada. ¡Pregúntame algo!';
+  if(/pista|consejo|ayuda|que hago|que elijo/.test(q)){const c=cur();if(S.screen!=='game'||!c)return 'Las pistas funcionan durante una partida. Dime «jugar» y empezamos.';if(c.quiz)return 'En los retos relámpago no puedo soplarte la respuesta. ¡Confía en lo que sabes!';const lo=G.m.indexOf(Math.min(...G.m));if(c.L.e[lo]===c.R.e[lo])return `Tu indicador más bajo es ${M[lo].n}, con ${G.m[lo]} puntos. Aquí ninguna opción lo cambia más que la otra: piensa en el equilibrio.`;const b=c.L.e[lo]>c.R.e[lo]?c.L:c.R;return `Tu indicador más bajo es ${M[lo].n}, con ${G.m[lo]} puntos. La opción «${b.l}» lo cuida mejor. Pero recuerda: toda decisión tiene un costo.`}
+  if(/como voy|estado|indicador|puntaje|puntos/.test(q)){if(!G)return last?`En tu última partida lograste ${last.s} puntos. ¿Lo superamos?`:'Todavía no has jugado. Dime «jugar» para empezar.';const lo=G.m.indexOf(Math.min(...G.m));return `Vas en el mes ${G.i+1} de ${G.deck.length}. `+M.map((x,i)=>`${x.n}: ${G.m[i]}`).join(', ')+`. Cuida ${M[lo].n}: si un indicador llega a cero, la partida termina.`}
+  if(/que son|que es.*(ods|agenda)|agenda 2030|desarrollo sostenible|onu/.test(q))return 'Los ODS son 17 Objetivos de Desarrollo Sostenible que todos los países de la ONU acordaron en 2015 para cumplir hasta el 2030: acabar con la pobreza, cuidar el planeta y lograr que todas las personas vivan en paz. Pregúntame por un número, por ejemplo «ODS 6».';
+  if(/como se juega|regla|instruccion|como funciona/.test(q))return 'Cada mes un vecino te trae un problema. Desliza la tarjeta a la izquierda o a la derecha para decidir. Tus decisiones mueven cuatro indicadores: Personas, Planeta, Prosperidad y Alianzas. Mantén los cuatro en equilibrio durante 12 meses.';
+  if(/quien eres|que eres|ayni|tu nombre|como te llamas/.test(q))return 'Soy AYNI, tu copiloto para la Misión 2030. Mi nombre viene del quechua y significa reciprocidad: hoy por ti, mañana por mí. Leo las tarjetas, doy pistas y respondo sobre los ODS.';
+  if(/docente|profesor|maestr|reporte|panel/.test(q)){show('teacher');return 'Abrí el panel docente. Ahí verás el avance del aula por cada ODS.'}
+  if(/jugar|empezar|comenzar|iniciar|nueva partida/.test(q)){if(P)newGame();else show('onboard');return P?`¡Vamos, ${P.n}! Villa Esperanza te espera.`:'¡Genial! Primero cuéntame quién eres.'}
+  if(/silencio|callate|sin voz|mute/.test(q)){voiceOn=false;store.set('ayni_voice',false);setVoice();return 'Listo, me quedo en silencio. Puedes seguir leyéndome aquí.'}
+  if(/hola|buenas|hey|que tal/.test(q))return `¡Hola${P?', '+P.n:''}! Soy AYNI. Puedo darte una pista, decirte cómo vas o explicarte cualquier ODS.`;
+  if(/gracias/.test(q))return '¡Hoy por ti, mañana por mí! Eso es el ayni.';
+  return 'Todavía estoy aprendiendo. Prueba con: «dame una pista», «¿cómo voy?», «¿qué es el ODS 13?» o «¿cómo se juega?».'}
+function ask(t){t=t.trim();if(!t)return;if(!chat.classList.contains('open'))toggleChat(true);addMsg('me',t);say(reply(t))}
+function toggleChat(f){const o=f??!chat.classList.contains('open');chat.classList.toggle('open',o);bub.style.display='none';if(o&&!log.children.length)say(`¡Hola${P?', '+P.n:''}! Soy AYNI, tu copiloto. Pregúntame lo que quieras sobre la misión o los ODS.`);if(o)setTimeout(()=>$('#askin').focus(),50)}
+
+/* ============ ACCIONES ============ */
+const A={
+ go:b=>show(b.dataset.to),
+ home:()=>{if(G&&!confirm('¿Salir de la partida? Se perderá el avance.'))return;G=null;try{speechSynthesis.cancel()}catch(e){}show('home')},
+ av:b=>{selAv=b.dataset.a;document.querySelectorAll('.avs button').forEach(x=>x.classList.toggle('on',x===b))},
+ start:()=>{const n=$('#fn').value.trim();if(!n){$('#fn').focus();$('#fn').style.borderColor='var(--cor)';return}P={n,g:$('#fg').value,c:$('#fc').value.trim().toUpperCase(),k:$('#fk').value,av:selAv};store.set('ayni_player',P);newGame()},
+ pick:b=>pick(b.dataset.side),quiz:b=>quiz(+b.dataset.i),next,again:newGame,
+ orb:()=>toggleChat(),
+ voice:()=>{voiceOn=!voiceOn;store.set('ayni_voice',voiceOn);setVoice();if(!voiceOn)try{speechSynthesis.cancel()}catch(e){}},
+ mic:()=>{const R=window.SpeechRecognition||window.webkitSpeechRecognition,mic=$('#mic');if(!R)return addMsg('ayni','Este navegador no permite dictado por voz. Escríbeme tu pregunta 🙂');try{const r=new R();r.lang='es-PE';r.onstart=()=>mic.classList.add('on');r.onend=()=>mic.classList.remove('on');r.onerror=()=>addMsg('ayni','No te escuché bien. Intenta otra vez o escríbeme.');r.onresult=e=>ask(e.results[0][0].transcript);r.start()}catch(e){}},
+ copy:async b=>{const t=$('#rcode').textContent;try{await navigator.clipboard.writeText(t);b.textContent='✔ Copiado'}catch(e){const r=document.createRange();r.selectNodeContents($('#rcode'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Seleccionado: pulsa Ctrl+C'}},
+ cert:()=>{const r=last;if(!r)return;const al=Object.keys(r.o).filter(k=>r.o[k]>0).map(k=>'ODS '+k).join(' · ');
+   $('#cert').innerHTML=`<div class="cert-in"><p><b>AYNI · MISIÓN 2030</b></p><h1>Certificado de Agente de Cambio</h1><p>Se otorga a</p><h2>${esc(r.n)}</h2><p>${esc(r.g)}${r.c?' · Aula '+esc(r.c):''}</p><p>por liderar Villa Esperanza y alcanzar <b>${r.s} puntos de impacto</b>${r.w?' con el perfil <b>'+esc(PROF[r.p][0])+'</b>':''}.</p>${al?`<p>Objetivos de Desarrollo Sostenible impulsados: ${al}</p>`:''}<p style="margin-top:30px">${esc(r.d)}</p></div>`;
+   document.body.classList.add('pc');window.print()},
+ print:()=>window.print(),
+ import:()=>{const el=$('#imp');try{const r=dec(el.value);if(typeof r.n!=='string'||typeof r.s!=='number'||!Array.isArray(r.m)||r.m.length!==4||!Array.isArray(r.q)||typeof r.o!=='object'||typeof r.t!=='object')throw 0;r.p=Math.min(3,Math.max(0,r.p|0));r.g=String(r.g||'');r.c=String(r.c||'');r.d=String(r.d||'');r.m=r.m.map(v=>clamp(+v||0));const R=store.get('ayni_results',[]);if(R.some(x=>x.id===r.id))return say('Ese resultado ya estaba registrado.');R.push(r);store.set('ayni_results',R);show('teacher');say(`Listo. Agregué el resultado de ${r.n}.`)}catch(e){el.style.borderColor='var(--cor)';say('Ese código no es válido. Revisa que esté completo y empiece con AYNI.')}},
+ demo:()=>{const N=['Valeria','Mateo','Luciana','Thiago','Camila','Sebastián','Ariana','Gael','Mía','Liam','Zoe','Adrián','Kiara','Dylan','Antonella','Joaquín','Alessia','Ian','Brianna','Emilio','Nayra','Fabricio','Killa','Samin'];
+   const R=store.get('ayni_results',[]),hard=[13,12,16];
+   N.forEach((n,i)=>{const skill=.35+Math.random()*.6,t={},o={};shuffle(CARDS).slice(0,10).forEach(c=>{t[c.ods]=(t[c.ods]||0)+1;if(Math.random()<skill*(hard.includes(c.ods)?.55:1.1))o[c.ods]=(o[c.ods]||0)+1});
+     const m=M.map(()=>clamp(Math.round(25+skill*55+Math.random()*20-10))),qk=Math.random()<skill?2:Math.random()<.6?1:0,w=Math.random()<.5+skill/2?1:0;
+     R.push({id:'demo'+i+Date.now().toString(36),n,g:GRADES[3],c:'2B',s:Math.round(sum(m)/4*8)+qk*50+(w?100:0),m,o,t,q:[qk,2],p:m.indexOf(Math.max(...m)),w,d:new Date().toLocaleDateString('es'),why:''})});
+   store.set('ayni_results',R);show('teacher');say('Cargué un aula de ejemplo con 24 estudiantes. Mira qué ODS necesita refuerzo.')},
+ csv:()=>{const R=store.get('ayni_results',[]),safe=v=>{v=String(v);if(/^[=+\-@]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'};
+   const rows=[['Estudiante','Grado','Aula','Puntaje','Personas','Planeta','Prosperidad','Alianzas','Retos correctos','Retos totales','Completó','ODS impulsados','Fecha'],...R.map(r=>[r.n,r.g,r.c,r.s,...r.m,r.q[0],r.q[1],r.w?'Sí':'No',Object.keys(r.o).filter(k=>r.o[k]>0).join(' '),r.d])];
+   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+rows.map(r=>r.map(safe).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}));a.download='ayni-reporte-aula.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)},
+ clear:()=>{if(confirm('¿Borrar todos los resultados guardados en este dispositivo? No se puede deshacer.')){store.set('ayni_results',[]);show('teacher')}}
+};
+document.addEventListener('click',e=>{const k=e.target.closest('[data-ask]');if(k)return ask(k.dataset.ask);const b=e.target.closest('[data-act]');if(b&&A[b.dataset.act])A[b.dataset.act](b,e)});
+$('#askf').addEventListener('submit',e=>{e.preventDefault();const i=$('#askin');ask(i.value);i.value=''});
+document.addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)){if(e.key==='Enter'&&S.screen==='onboard'&&e.target.id!=='askin')A.start();return}
+  if(S.screen!=='game'||!G)return;if(e.key==='ArrowLeft')pick('L');else if(e.key==='ArrowRight')pick('R')});
+window.addEventListener('afterprint',()=>document.body.classList.remove('pc'));
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(P&&P.av)selAv=P.av;
+setVoice();show('home');
+</script>
+</body>
+</html>
